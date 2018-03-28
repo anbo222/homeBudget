@@ -5,6 +5,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Tag.
@@ -14,6 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\Entity(
  *     repositoryClass="AppBundle\Repository\TagsRepository"
+ * )
+ * @UniqueEntity(
+ *     fields={"name"}
  * )
  */
 class Tag
@@ -52,6 +57,12 @@ class Tag
      *     length=128,
      *     nullable=false,
      * )
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="128",
+     * )
      */
     protected $name;
 
@@ -80,7 +91,7 @@ class Tag
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */

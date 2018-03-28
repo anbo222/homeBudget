@@ -35,6 +35,10 @@
             </tbody>
         </table>
 
+        <div class="navigation text-center">
+            {{ pagerfanta(tags, 'twitter_bootstrap3_translated', { routeName: ('tags_index_paginated') }) }}
+        </div>
+
     {% else %}
         <div class="alert alert-warning" role="alert">
             {{ 'message.empty_list'|trans }}
