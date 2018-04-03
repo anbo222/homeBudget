@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.bookmarks'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'title.bookmarks'|trans }}</h1>
+
+    {% if bookmarks is defined and bookmarks|length %}
+
+        {% for bookmark in bookmarks %}
+            <dl>
+                <dt>{{ 'label.id'|trans }}</dt>
+                <dd>{{ loop.index0 }}</dd>
+                <dt>{{ 'label.url'|trans }}</dt>
+                <dd>{{ bookmark.url }}</dd>
+                <dt>{{ 'label.tags'|trans }}</dt>
+                <dd>
+                    {% for tag in bookmark.tags %}
+                        {% if loop.index0 == bookmark.tags|length %}
+                            <i>{{ tag }}</i>
+                        {% else %}
+                            <i>{{ tag }}</i>,
+                        {% endif %}
+                    {% endfor %}
+                </dd>
+                <dt><a href="{{ loop.index0 }}">Zobacz ten rekord</a></dt>
+            </dl>
+        {% endfor %}
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+
+{% endblock %}
