@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     fields={"name"}
  * )
  */
-class Tag
+class Bookmark
 {
     /**
      * Use constants to define configuration options that rarely change instead

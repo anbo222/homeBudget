@@ -1,4 +1,3 @@
-
 <?php
 
 namespace AppBundle\Repository;
@@ -27,7 +26,7 @@ class BookmarksRepository extends EntityRepository
      */
     public function findAllPaginated($page = 1)
     {
-        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryAll(), fal$
+        $paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryAll(), false));
         $paginator->setMaxPerPage(Bookmark::NUM_ITEMS);
         $paginator->setCurrentPage($page);
 
