@@ -67,6 +67,19 @@ class Tag
     protected $name;
 
     /**
+     * Bookmarks.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection $bookmarks
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="Bookmark",
+     *     mappedBy="tags",
+     * )
+     */
+    protected $bookmarks;
+
+
+    /**
      * Get id
      *
      * @return integer

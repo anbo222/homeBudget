@@ -67,6 +67,22 @@ class Bookmark
     protected $name;
 
     /**
+     * Tags.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection $tags
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="Tag",
+     *     inversedBy="bookmarks",
+     * )
+     * @ORM\JoinTable(
+     *     name="bookmarks_tags"
+     * )
+     */
+    protected $tags;
+
+
+    /**
      * Get id
      *
      * @return integer

@@ -5,6 +5,8 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Bookmark;
+use AppBundle\Entity\Tag;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +35,20 @@ class BookmarkType extends AbstractType
                 'attr' => [
                     'max_length' => 128,
                 ],
+            ]
+        );
+        $builder->add(
+            'tags',
+            EntityType::class,
+            [
+                'class' => Tag::class,
+                'choice_label' => function ($tag) {
+                    return $tag->getName();
+                },
+                'label' => 'label.tag',
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
             ]
         );
     }
