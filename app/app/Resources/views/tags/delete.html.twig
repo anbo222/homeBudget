@@ -1,8 +1,9 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'title.tag_add',
+    page_title: 'title.tag_delete',
+    page_title_param: {'%id%': tag.id},
     attr: {
         method: 'post',
-        action: url('tags_add')
+        action: url('tags_delete', {'id': tag.id}),
     },
     back_to_list_path: 'tags_index',
 } %}

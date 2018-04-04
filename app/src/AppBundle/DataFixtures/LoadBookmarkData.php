@@ -5,35 +5,34 @@
 
 namespace AppBundle\DataFixtures;
 
-use AppBundle\Entity\Tag;
+use AppBundle\Entity\Bookmark;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Class LoadTagData.
+ * Class LoadBookmarkData.
  */
-class LoadTagData extends Fixture
+class LoadBookmarkData extends Fixture
 {
     /**
-     * Load tags.
+     * Load bookmarks.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager Object manager
      */
     public function load(ObjectManager $manager)
     {
         $data = [
-            'Git',
-            'Google',
-            'Symfony',
-            'Twig',
-            'Silex',
-            'Doctrine',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
         ];
 
         foreach ($data as $item) {
-            $tag = new Tag();
-            $tag->setName($item);
-            $manager->persist($tag);
+            $bookmark = new Bookmark();
+            $bookmark->setName($item);
+            $manager->persist($bookmark);
         }
         $manager->flush();
     }
