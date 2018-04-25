@@ -1,12 +1,12 @@
 <?php
 /**
- * Bookmarks controller.
+ * Categories controller.
  */
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Bookmark;
-use AppBundle\Form\BookmarkType;
-use AppBundle\Repository\BookmarksRepository;
+use AppBundle\Entity\Category;
+use AppBundle\Form\CategoryType;
+use AppBundle\Repository\CategoriesRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,29 +14,29 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class BookmarksController.
+ * Class CategoriesController.
  *
  * @package AppBundle\Controller
  *
- * @Route("/bookmarks")
+ * @Route("/categories")
  */
-class BookmarksController extends Controller
+class CategoriesController extends Controller
 {
     /**
-     * Bookmarks repository.
+     * Categories repository.
      *
-     * @var \AppBundle\Repository\BookmarksRepository|null Bookmark repository
+     * @var \AppBundle\Repository\CategoriesRepository|null Category repository
      */
-    protected $bookmarksRepository = null;
+    protected $categoriesRepository = null;
 
     /**
-     * BookmarksController constructor.
+     * CategoriesController constructor.
      *
-     * @param \AppBundle\Repository\BookmarksRepository $bookmarksRepository Bookmark repository
+     * @param \AppBundle\Repository\CategoriesRepository $categoriesRepository Category repository
      */
-    public function __construct(BookmarksRepository $bookmarksRepository)
+    public function __construct(CategoriesRepository $categoriesRepository)
     {
-        $this->bookmarksRepository = $bookmarksRepository;
+        $this->categoriesRepository = $categoriesRepository;
     }
 
     /**
@@ -47,12 +47,12 @@ class BookmarksController extends Controller
      * @Route(
      *     "/",
      *     defaults={"page": 1},
-     *     name="bookmarks_index",
+     *     name="categories_index",
      * )
      * @Route(
      *     "/page/{page}",
      *     requirements={"page": "[1-9]\d*"},
-     *     name="bookmarks_index_paginated",
+     *     name="categories_index_paginated",
      * )
      * @Method("GET")
      *
@@ -60,33 +60,33 @@ class BookmarksController extends Controller
      */
     public function indexAction($page)
     {
-        $bookmarks = $this->bookmarksRepository->findAllPaginated($page);
+        $categories = $this->categoriesRepository->findAllPaginated($page);
 
         return $this->render(
-            'bookmarks/index.html.twig',
-            ['bookmarks' => $bookmarks]
+            'categories/index.html.twig',
+            ['categories' => $categories]
         );
     }
 
     /**
      * View action.
      *
-     * @param Bookmark $bookmark Bookmark entity
+     * @param Category $category Category entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
      *     "/{id}",
      *     requirements={"id": "[1-9]\d*"},
-     *     name="bookmarks_view",
+     *     name="categories_view",
      * )
      * @Method("GET")
      */
-    public function viewAction(Bookmark $bookmark)
+    public function viewAction(Category $category)
     {
         return $this->render(
-            'bookmarks/view.html.twig',
-            ['bookmark' => $bookmark]
+            'category/view.html.twig',
+            ['category' => $category]
         );
     }
 
@@ -101,27 +101,27 @@ class BookmarksController extends Controller
      *
      * @Route(
      *     "/add",
-     *     name="bookmarks_add",
+     *     name="categories_add",
      * )
      * @Method({"GET", "POST"})
      */
     public function addAction(Request $request)
     {
-        $bookmark = new Bookmark();
-        $form = $this->createForm(BookmarkType::class, $bookmark);
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->bookmarksRepository->save($bookmark);
+            $this->categoriesRepository->save($category);
             $this->addFlash('success', 'message.created_successfully');
 
-            return $this->redirectToRoute('bookmarks_index');
+            return $this->redirectToRoute('categories_index');
         }
 
         return $this->render(
-            'bookmarks/add.html.twig',
+            'categories/add.html.twig',
             [
-                'bookmark' => $bookmark,
+                'category' => $category,
                 'form' => $form->createView(),
             ]
         );
@@ -131,7 +131,7 @@ class BookmarksController extends Controller
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request   HTTP      Request
-     * @param \AppBundle\Entity\Bookmark                $bookmark  Bookmark  entity
+     * @param \AppBundle\Entity\Category                $category  Category  entity
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -140,26 +140,26 @@ class BookmarksController extends Controller
      * @Route(
      *     "/{id}/edit",
      *     requirements={"id": "[1-9]\d*"},
-     *     name="bookmarks_edit",
+     *     name="categories_edit",
      * )
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Bookmark $bookmark)
+    public function editAction(Request $request, Category $category)
     {
-        $form = $this->createForm(BookmarkType::class, $bookmark);
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->bookmarksRepository->save($bookmark);
+            $this->categoriesRepository->save($category);
             $this->addFlash('success', 'message.modified_successfully');
 
-            return $this->redirectToRoute('bookmarks_index');
+            return $this->redirectToRoute('categories_index');
         }
 
         return $this->render(
-            'bookmarks/edit.html.twig',
+            'categories/edit.html.twig',
             [
-                'bookmark' => $bookmark,
+                'category' => $category,
                 'form' => $form->createView(),
             ]
         );
@@ -169,7 +169,7 @@ class BookmarksController extends Controller
      * Delete action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request   HTTP      Request
-     * @param \AppBundle\Entity\Bookmark                     $bookmark  Bookmark  entity
+     * @param \AppBundle\Entity\Category                $category  Category  entity
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response HTTP Response
      *
@@ -178,26 +178,26 @@ class BookmarksController extends Controller
      * @Route(
      *     "/{id}/delete",
      *     requirements={"id": "[1-9]\d*"},
-     *     name="bookmarks_delete",
+     *     name="categories_delete",
      * )
      * @Method({"GET", "POST"})
      */
-    public function deleteAction(Request $request, Bookmark $bookmark)
+    public function deleteAction(Request $request, Category $category)
     {
-        $form = $this->createForm(FormType::class, $bookmark);
+        $form = $this->createForm(FormType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->bookmarksRepository->delete($bookmark);
+            $this->categoriesRepository->delete($category);
             $this->addFlash('success', 'message.deleted_successfully');
 
-            return $this->redirectToRoute('bookmarks_index');
+            return $this->redirectToRoute('categories_index');
         }
 
         return $this->render(
-            'bookmarks/delete.html.twig',
+            'categories/delete.html.twig',
             [
-                'bookmark' => $bookmark,
+                'category' => $category,
                 'form' => $form->createView(),
             ]
         );

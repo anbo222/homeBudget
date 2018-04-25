@@ -10,6 +10,7 @@
     }
   ],
   "require": {
-    "white-october/pagerfanta-bundle": "^1.1"
+    "white-october/pagerfanta-bundle": "^1.1",
+    "stof/doctrine-extensions-bundle": "^1.3"
   }
 }

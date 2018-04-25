@@ -5,35 +5,72 @@
 {% endblock %}
 
 {% block body %}
-
     <h1>{{ 'title.bookmarks'|trans }}</h1>
-
     {% if bookmarks is defined and bookmarks|length %}
-
-        {% for bookmark in bookmarks %}
-            <dl>
-                <dt>{{ 'label.id'|trans }}</dt>
-                <dd>{{ loop.index0 }}</dd>
-                <dt>{{ 'label.url'|trans }}</dt>
-                <dd>{{ bookmark.url }}</dd>
-                <dt>{{ 'label.tags'|trans }}</dt>
-                <dd>
-                    {% for tag in bookmark.tags %}
-                        {% if loop.index0 == bookmark.tags|length %}
-                            <i>{{ tag }}</i>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label.id'|trans }}</th>
+                <th>{{ 'label.title'|trans }}</th>
+                <th>{{ 'label.url'|trans }}</th>
+                <th>{{ 'label.tags'|trans }}</th>
+                <th scope="col">
+                    {{ 'label.actions'|trans }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in bookmarks %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.url }}</td>
+                    <td>
+                        {% if item.tags is defined and item.tags|length %}
+                            {% for tag in item.tags %}
+                                {{ tag.name }}
+                            {% endfor %}
                         {% else %}
-                            <i>{{ tag }}</i>,
+                            <p>-</p>
                         {% endif %}
-                    {% endfor %}
-                </dd>
-                <dt><a href="{{ loop.index0 }}">Zobacz ten rekord</a></dt>
-            </dl>
-        {% endfor %}
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="{{ 'label.actions'|trans }}">
+                            <a href="{{ path('bookmarks_view', {'id': item.id}) }}" class="btn btn-primary" title="{{ 'action
+                            .view'|trans }}">
+
+                                {{ 'action.view'|trans }}
+                            </a>
+                            <a href="{{ path('bookmarks_edit', {'id': item.id}) }}" class="btn btn-warning" title="{{ 'action
+                            .edit'|trans }}">
+
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ path('bookmarks_delete', {'id': item.id}) }}" class="btn btn-danger" title="{{
+                            'action.delete'|trans }}">
+
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ pagerfanta(bookmarks, 'twitter_bootstrap3_translated', { routeName: ('bookmarks_index_paginated') }) }}
+        </div>
+
+        <div>
+            <a href="{{ path('bookmarks_add') }}" class="btn btn-primary" title="{{'action.add'|trans }}">
+                {{ 'action.add'|trans }}
+            </a>
+        </div>
 
     {% else %}
-        <p>
+        <div class="alert alert-warning" role="alert">
             {{ 'message.empty_list'|trans }}
-        </p>
+        </div>
     {% endif %}
-
 {% endblock %}

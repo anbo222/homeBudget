@@ -77,7 +77,13 @@ class Tag
      * )
      */
     protected $bookmarks;
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bookmarks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -104,12 +110,46 @@ class Tag
     }
 
     /**
-     * Get name.
+     * Get name
      *
      * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add bookmark
+     *
+     * @param \AppBundle\Entity\Bookmark $bookmark
+     *
+     * @return Tag
+     */
+    public function addBookmark(\AppBundle\Entity\Bookmark $bookmark)
+    {
+        $this->bookmarks[] = $bookmark;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookmark
+     *
+     * @param \AppBundle\Entity\Bookmark $bookmark
+     */
+    public function removeBookmark(\AppBundle\Entity\Bookmark $bookmark)
+    {
+        $this->bookmarks->removeElement($bookmark);
+    }
+
+    /**
+     * Get bookmarks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBookmarks()
+    {
+        return $this->bookmarks;
     }
 }

@@ -41,3 +41,7 @@ services:
     AppBundle\Repository\TagsRepository:
         factory: 'doctrine.orm.entity_manager:getRepository'
         arguments: ['AppBundle\Entity\Tag']
+
+    AppBundle\Repository\CategoriesRepository:
+            factory: 'doctrine.orm.entity_manager:getRepository'
+            arguments: ['AppBundle\Entity\Category']

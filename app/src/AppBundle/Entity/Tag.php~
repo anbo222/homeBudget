@@ -5,6 +5,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Tag.
@@ -14,6 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ORM\Entity(
  *     repositoryClass="AppBundle\Repository\TagsRepository"
+ * )
+ * @UniqueEntity(
+ *     fields={"name"}
  * )
  */
 class Tag
@@ -52,6 +57,99 @@ class Tag
      *     length=128,
      *     nullable=false,
      * )
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="128",
+     * )
      */
     protected $name;
+
+    /**
+     * Bookmarks.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection $bookmarks
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="Bookmark",
+     *     mappedBy="tags",
+     * )
+     */
+    protected $bookmarks;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bookmarks = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Tag
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add bookmark
+     *
+     * @param \AppBundle\Entity\Bookmark $bookmark
+     *
+     * @return Tag
+     */
+    public function addBookmark(\AppBundle\Entity\Bookmark $bookmark)
+    {
+        $this->bookmarks[] = $bookmark;
+
+        return $this;
+    }
+
+    /**
+     * Remove bookmark
+     *
+     * @param \AppBundle\Entity\Bookmark $bookmark
+     */
+    public function removeBookmark(\AppBundle\Entity\Bookmark $bookmark)
+    {
+        $this->bookmarks->removeElement($bookmark);
+    }
+
+    /**
+     * Get bookmarks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBookmarks()
+    {
+        return $this->bookmarks;
+    }
 }

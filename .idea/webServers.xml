@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ba7ee266-8707-4671-a7d5-1961f8e08fce" name="Cis" url="http://cis.wzks.uj.edu.pl">
+        <fileTransfer host="cis.wzks.uj.edu.pl" port="22" rootFolder="/home/epi/13_bogusz" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

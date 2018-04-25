@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.tags'|trans }}
+    {{ 'title.categories'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tags'|trans }}</h1>
-    {% if tags is defined and tags|length %}
+    <h1>{{ 'title.categories'|trans }}</h1>
+    {% if categories is defined and categories|length %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -18,23 +18,23 @@
             </tr>
             </thead>
             <tbody>
-            {% for item in tags %}
+            {% for item in categories %}
                 <tr>
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="{{ 'label.actions'|trans }}">
-                            <a href="{{ path('tags_view', {'id': item.id}) }}" class="btn btn-primary" title="{{ 'action
+                            <a href="{{ path('categories_view', {'id': item.id}) }}" class="btn btn-primary" title="{{ 'action
                             .view'|trans }}">
 
                                 {{ 'action.view'|trans }}
                             </a>
-                            <a href="{{ path('tags_edit', {'id': item.id}) }}" class="btn btn-warning" title="{{ 'action
+                            <a href="{{ path('categories_edit', {'id': item.id}) }}" class="btn btn-warning" title="{{ 'action
                             .edit'|trans }}">
 
                                 {{ 'action.edit'|trans }}
                             </a>
-                            <a href="{{ path('tags_delete', {'id': item.id}) }}" class="btn btn-danger" title="{{
+                            <a href="{{ path('categories_delete', {'id': item.id}) }}" class="btn btn-danger" title="{{
                             'action.delete'|trans }}">
 
                                 {{ 'action.delete'|trans }}
@@ -47,11 +47,11 @@
         </table>
 
         <div class="navigation text-center">
-            {{ pagerfanta(tags, 'twitter_bootstrap3_translated', { routeName: ('tags_index_paginated') }) }}
+            {{ pagerfanta(categories, 'twitter_bootstrap3_translated', { routeName: ('categories_index_paginated') }) }}
         </div>
 
         <div>
-            <a href="{{ path('tags_add') }}" class="btn btn-primary" title="{{'action.add'|trans }}">
+            <a href="{{ path('categories_add') }}" class="btn btn-primary" title="{{'action.add'|trans }}">
                 {{ 'action.add'|trans }}
             </a>
         </div>

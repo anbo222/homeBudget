@@ -1,21 +1,21 @@
 <?php
 /**
- * Data fixtures for tags.
+ * Data fixtures for categories.
  */
 
 namespace AppBundle\DataFixtures;
 
-use AppBundle\Entity\Bookmark;
+use AppBundle\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
- * Class LoadBookmarkData.
+ * Class LoadCategoryData.
  */
-class LoadBookmarkData extends Fixture
+class LoadCategoryData extends Fixture
 {
     /**
-     * Load bookmarks.
+     * Load categories.
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager Object manager
      */
@@ -30,10 +30,9 @@ class LoadBookmarkData extends Fixture
         ];
 
         foreach ($data as $item) {
-            $bookmark = new Bookmark();
-            $bookmark->setTitle($item);
-            $bookmark->setUrl('a');
-            $manager->persist($bookmark);
+            $category = new Category();
+            $category->setName($item);
+            $manager->persist($category);
         }
         $manager->flush();
     }

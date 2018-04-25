@@ -22,6 +22,22 @@
                 <source>title.bookmark</source>
                 <target>Bookmark</target>
             </trans-unit>
+            <trans-unit id="title.category">
+                <source>title.category</source>
+                <target>Kategoria</target>
+            </trans-unit>
+            <trans-unit id="title.categories">
+                <source>title.categories</source>
+                <target>Kategorie</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Nazwa</target>
+            </trans-unit>
+            <trans-unit id="label.actions">
+                <source>label.actions</source>
+                <target>Akcje</target>
+            </trans-unit>
 
         </body>
     </file>

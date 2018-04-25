@@ -6,10 +6,14 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Bookmark;
 use AppBundle\Entity\Tag;
+use AppBundle\Repository\TagsRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -17,6 +21,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class BookmarkType extends AbstractType
 {
+    /**
+     * Tag repository.
+     *
+     * @var TagsRepository|null Tag repository
+     */
+    protected $tagsRepository = null;
+
+    /**
+     * BookmarkType constructor.
+     *
+     * @param TagsRepository $tagsRepository Tag repository
+     */
+    public function __construct(TagsRepository $tagsRepository)
+    {
+        $this->tagsRepository = $tagsRepository;
+    }
 
     /**
      * {@inheritdoc}
@@ -27,10 +47,10 @@ class BookmarkType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
-            'name',
+            'title',
             TextType::class,
             [
-                'label' => 'label.name',
+                'label' => 'label.title',
                 'required' => true,
                 'attr' => [
                     'max_length' => 128,
@@ -38,18 +58,44 @@ class BookmarkType extends AbstractType
             ]
         );
         $builder->add(
-            'tags',
-            EntityType::class,
+            'url',
+            UrlType::class,
             [
-                'class' => Tag::class,
-                'choice_label' => function ($tag) {
-                    return $tag->getName();
-                },
-                'label' => 'label.tag',
-                'required' => false,
-                'expanded' => true,
-                'multiple' => true,
+                'label' => 'label.url',
+                'required' => true,
+                'attr' => [
+                    'max_length' => 255,
+                    'readonly' => (isset($options['data']) && $options['data']->getId()),
+                ],
             ]
+        );
+        $builder->add(
+            'tags',
+            TextType::class,
+            [
+                'label' => 'label.tags',
+                'required' => true,
+                'attr' => [
+                    'max_length' => 255,
+                ],
+            ]
+        );
+        $builder->get('tags')->addModelTransformer(
+            new TagsDataTransformer($this->tagsRepository)
+        );
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+
+                $normData = $form->getNormData();
+
+                if ($normData->getId()) {
+                    $data['url'] = $normData->getUrl();
+                    $event->setData($data);
+                }
+            }
         );
     }
 

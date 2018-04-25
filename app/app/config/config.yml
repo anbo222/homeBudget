@@ -93,3 +93,10 @@ assetic:
         jquery:
             inputs:
                 - '%kernel.root_dir%/../vendor/components/jquery/jquery.js'
+
+# Doctrine Extensions Configuration
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            timestampable: true
