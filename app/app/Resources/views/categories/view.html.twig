@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.tags'|trans }}
+    {{ 'title.categories'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tags'|trans }}</h1>
-    {% if tags is defined and tags|length %}
+    <h1>{{ 'title.categories'|trans }}</h1>
+    {% if category is defined and category|length %}
         <table class="table table-striped">
             <thead>
             <tr>
@@ -19,15 +19,32 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ tag.id }}</td>
-                    <td>{{ tag.name }}</td>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="{{ 'label.actions'|trans }}">
+                            <a href="{{ path('categories_edit', {'id': category.id}) }}" class="btn btn-warning" title="{{ 'action
+                            .edit'|trans }}">
+
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ path('categories_delete', {'id': category.id}) }}" class="btn btn-danger" title="{{
+                                'action.delete'|trans }}">
+
+                                {{ 'action.delete'|trans }}
+                            </a>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div>
+            <a href="{{ path('categories_index') }}" class="btn btn-primary" title="{{
+            'action.back_to_list'|trans }}">
+
+                {{ 'action.back_to_list'|trans }}
+            </a>
+        </div>
 
     {% else %}
         <div class="alert alert-warning" role="alert">

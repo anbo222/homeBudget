@@ -24,20 +24,77 @@
             </trans-unit>
             <trans-unit id="title.category">
                 <source>title.category</source>
-                <target>Kategoria</target>
+                <target>Category</target>
             </trans-unit>
             <trans-unit id="title.categories">
                 <source>title.categories</source>
-                <target>Kategorie</target>
+                <target>Categories</target>
             </trans-unit>
             <trans-unit id="label.name">
                 <source>label.name</source>
-                <target>Nazwa</target>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="label.title">
+                <source>label.title</source>
+                <target>Title</target>
             </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
-                <target>Akcje</target>
+                <target>Actions</target>
             </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Back to list</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="title.category_add">
+                <source>title.category_add</source>
+                <target>Add category</target>
+            </trans-unit>
+            <trans-unit id="title.category_view">
+                <source>title.category_view</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="title.category_edit">
+                <source>title.category_edit</source>
+                <target>Edit category</target>
+            </trans-unit>
+            <trans-unit id="title.category_delete">
+                <source>title.category_delete</source>
+                <target>Delete category</target>
+            </trans-unit>
+            <trans-unit id="action.add">
+                <source>action.add</source>
+                <target>Add</target>
+            </trans-unit>
+            <trans-unit id="action.view">
+                <source>action.view</source>
+                <target>View</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>action.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="message.modified_successfully">
+                <source>message.modified_successfully</source>
+                <target>Modified successfully</target>
+            </trans-unit>
+            <trans-unit id="message.added_successfully">
+                <source>message.added_successfully</source>
+                <target>Added successfully</target>
+            </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Deleted successfully</target>
+            </trans-unit>
+
 
         </body>
     </file>

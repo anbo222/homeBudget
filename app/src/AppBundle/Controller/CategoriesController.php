@@ -85,7 +85,7 @@ class CategoriesController extends Controller
     public function viewAction(Category $category)
     {
         return $this->render(
-            'category/view.html.twig',
+            'categories/view.html.twig',
             ['category' => $category]
         );
     }
