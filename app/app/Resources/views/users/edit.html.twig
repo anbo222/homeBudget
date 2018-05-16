@@ -1,0 +1,9 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.user_edit',
+    page_title_param: {'%id%': user.id},
+    attr: {
+        method: 'post',
+        action: url('users_edit', {'id': user.id}),
+    },
+    back_to_list_path: 'users_index',
+} %}

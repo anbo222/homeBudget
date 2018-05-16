@@ -74,6 +74,9 @@ class Category
      *
      * One Category has Many Operations.
      * @ORM\OneToMany(targetEntity="Operation", mappedBy="categories")
+     * )
+     *
+     *
      */
     protected $operations;
 

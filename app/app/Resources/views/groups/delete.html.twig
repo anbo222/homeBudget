@@ -1,0 +1,9 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.group_delete',
+    page_title_param: {'%id%': group.id},
+    attr: {
+        method: 'post',
+        action: url('groups_delete', {'id': group.id}),
+    },
+    back_to_list_path: 'groups_index',
+} %}

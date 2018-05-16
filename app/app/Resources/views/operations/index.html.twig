@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.operations'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title.operations'|trans }}</h1>
+    {% if operations is defined and operations|length %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label.id'|trans }}</th>
+                <th>{{ 'label.amount'|trans }}</th>
+                <th>{{ 'label.date_created'|trans }}</th>
+                <th>{{ 'label.date_modified'|trans }}</th>
+                <th>{{ 'label.categories'|trans }}</th>
+                <th scope="col">
+                    {{ 'label.actions'|trans }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in operations %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.amount }}</td>
+                    <td>{{ item.createdAt|date('Y-m-d') }}</td>
+                    <td>{{ item.modifiedAt|date('Y-m-d') }}</td>
+                    <td>
+                        {% if item.categories is defined and item.categories|length %}
+                            {% for category in item.categories %}
+                                {{ category.name }}
+                            {% endfor %}
+                        {% else %}
+                            <p>-</p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="{{ 'label.actions'|trans }}">
+                            <a href="{{ path('operations_view', {'id': item.id}) }}" class="btn btn-primary" title="{{
+                            'action
+                            .view'|trans }}">
+
+                                {{ 'action.view'|trans }}
+                            </a>
+                            <a href="{{ path('operations_edit', {'id': item.id}) }}" class="btn btn-warning" title="{{ 'action
+                            .edit'|trans }}">
+
+                                {{ 'action.edit'|trans }}
+                            </a>
+                            <a href="{{ path('operations_delete', {'id': item.id}) }}" class="btn btn-danger" title="{{
+                            'action.delete'|trans }}">
+
+                                {{ 'action.delete'|trans }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ pagerfanta(operations, 'twitter_bootstrap3_translated', { routeName: ('operations_index_paginated') }) }}
+        </div>
+
+        <div>
+            <a href="{{ path('operations_add') }}" class="btn btn-primary" title="{{'action.add'|trans }}">
+                {{ 'action.add'|trans }}
+            </a>
+        </div>
+
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ 'message.empty_list'|trans }}
+        </div>
+    {% endif %}
+{% endblock %}

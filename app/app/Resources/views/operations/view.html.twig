@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.operations'|trans }}
+{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'title.operation'|trans }}</h1>
+
+    {% if operation is defined and operation|length %}
+
+
+            <dl>
+                <dt>{{ 'label.amount'|trans }}</dt>
+                <dd>{{ operation.amount }}</dd>
+                <dt>{{ 'label.date_created'|trans }}</dt>
+                <dd>{{ operation.createdAt|date('Y-m-d') }}</dd>
+                <dt>{{ 'label.date_modified'|trans }}</dt>
+                <dd>{{ operation.modifiedAt|date('Y-m-d') }}</dd>
+                <dt>{{ 'label.categories'|trans }}</dt>
+                {% for tag in operation.categories %}
+                    <dd><i>{{ category }}</i></dd>
+                {% endfor %}
+            </dl>
+
+
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
+
+{% endblock %}

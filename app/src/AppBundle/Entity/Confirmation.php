@@ -1,6 +1,6 @@
 <?php
 /**
- * Category entity.
+ * Confirmation entity.
  */
 namespace AppBundle\Entity;
 
@@ -10,19 +10,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Class Category.
+ * Class Confirmation.
  *
  * @ORM\Table(
- *     name="category"
+ *     name="confirmation"
  * )
  * @ORM\Entity(
  *     repositoryClass="AppBundle\Repository\CategoriesRepository"
  * )
  * @UniqueEntity(
- *     fields={"name"}
+ *     fields={"confirmation"}
  * )
  */
-class Category
+class Confirmation
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -48,12 +48,12 @@ class Category
     protected $id;
 
     /**
-     * Name.
+     * Confirmation.
      *
-     * @var string $name
+     * @var string $confirmation
      *
      * @ORM\Column(
-     *     name="name",
+     *     name="confirmation",
      *     type="string",
      *     length=45,
      *     nullable=false,
@@ -65,17 +65,27 @@ class Category
      *     max="45",
      * )
      */
-    protected $name;
+    protected $confirmation;
 
     /**
-     * Operations.
+     * Flag.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection $operations
+     * @var string $flag
      *
-     * One Category has Many Operations.
-     * @ORM\OneToMany(targetEntity="Operation", mappedBy="categories")
+     * @ORM\Column(
+     *     name="flag",
+     *     type="string",
+     *     length=1,
+     *     nullable=false,
+     * )
+     *
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="1",
+     *     max="1",
+     * )
      */
-    protected $operations;
+    protected $flag;
 
     /**
      * Constructor
@@ -84,6 +94,7 @@ class Category
     {
         $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
 
     /**
      * Get id
@@ -96,60 +107,50 @@ class Category
     }
 
     /**
-     * Set name
+     * Set confirmation
      *
-     * @param string $name
+     * @param string $confirmation
      *
-     * @return Category
+     * @return Confirmation
      */
-    public function setName($name)
+    public function setConfirmation($confirmation)
     {
-        $this->name = $name;
+        $this->confirmation = $confirmation;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get confirmation
      *
      * @return string
      */
-    public function getName()
+    public function getConfirmation()
     {
-        return $this->name;
+        return $this->confirmation;
     }
 
     /**
-     * Add operation
+     * Set flag
      *
-     * @param \AppBundle\Entity\Operation $operation
+     * @param string $flag
      *
-     * @return Category
+     * @return Confirmation
      */
-    public function addOperation(\AppBundle\Entity\Operation $operation)
+    public function setFlag($flag)
     {
-        $this->operations[] = $operation;
+        $this->flag = $flag;
 
         return $this;
     }
 
     /**
-     * Remove operation
+     * Get flag
      *
-     * @param \AppBundle\Entity\Operation $operation
+     * @return string
      */
-    public function removeOperation(\AppBundle\Entity\Operation $operation)
+    public function getFlag()
     {
-        $this->operations->removeElement($operation);
-    }
-
-    /**
-     * Get operations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOperations()
-    {
-        return $this->operations;
+        return $this->flag;
     }
 }

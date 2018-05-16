@@ -1,6 +1,6 @@
 <?php
 /**
- * Category entity.
+ * Group entity.
  */
 namespace AppBundle\Entity;
 
@@ -10,19 +10,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Class Category.
+ * Class Group.
  *
  * @ORM\Table(
- *     name="category"
+ *     name="group"
  * )
  * @ORM\Entity(
  *     repositoryClass="AppBundle\Repository\CategoriesRepository"
  * )
- * @UniqueEntity(
- *     fields={"name"}
- * )
  */
-class Category
+class Group
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -68,22 +65,13 @@ class Category
     protected $name;
 
     /**
-     * Operations.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection $operations
-     *
-     * One Category has Many Operations.
-     * @ORM\OneToMany(targetEntity="Operation", mappedBy="categories")
-     */
-    protected $operations;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
 
     /**
      * Get id
@@ -100,7 +88,7 @@ class Category
      *
      * @param string $name
      *
-     * @return Category
+     * @return Group
      */
     public function setName($name)
     {
@@ -117,39 +105,5 @@ class Category
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Add operation
-     *
-     * @param \AppBundle\Entity\Operation $operation
-     *
-     * @return Category
-     */
-    public function addOperation(\AppBundle\Entity\Operation $operation)
-    {
-        $this->operations[] = $operation;
-
-        return $this;
-    }
-
-    /**
-     * Remove operation
-     *
-     * @param \AppBundle\Entity\Operation $operation
-     */
-    public function removeOperation(\AppBundle\Entity\Operation $operation)
-    {
-        $this->operations->removeElement($operation);
-    }
-
-    /**
-     * Get operations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getOperations()
-    {
-        return $this->operations;
     }
 }

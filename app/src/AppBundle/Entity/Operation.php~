@@ -1,6 +1,6 @@
 <?php
 /**
- * Bookmark entity.
+ * Operation entity.
  */
 namespace AppBundle\Entity;
 
@@ -10,19 +10,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Class Bookmark.
+ * Class Operation.
  *
  * @ORM\Table(
- *     name="bookmarks"
+ *     name="operations"
  * )
  * @ORM\Entity(
- *     repositoryClass="AppBundle\Repository\BookmarksRepository"
+ *     repositoryClass="AppBundle\Repository\OperationsRepository"
  * )
  * @UniqueEntity(
  *     fields={"title"}
  * )
  */
-class Bookmark
+class Operation
 {
     /**
      * Use constants to define configuration options that rarely change instead
@@ -48,59 +48,36 @@ class Bookmark
     protected $id;
 
     /**
-     * Title.
+     * Amount.
      *
-     * @var string $title
+     * @var int $amount
      *
      * @ORM\Column(
-     *     name="title",
-     *     type="string",
-     *     length=128,
+     *     name="amount",
+     *     type="integer",
      *     nullable=false,
      * )
      *
      * @Assert\NotBlank
-     * @Assert\Length(
-     *     min="3",
-     *     max="128",
-     * )
      */
-    protected $title;
+    protected $amount;
 
     /**
-     * Url.
+     * Categories.
      *
-     * @var string $url
+     * @var \Doctrine\Common\Collections\ArrayCollection $categories
      *
-     * @ORM\Column(
-     *     name="url",
-     *     type="string",
-     *     length=255,
-     *     nullable=false,
+     * Many Operations have One Category.
+     * @ORM\ManyToOne(
+     *     targetEntity="Category",
+     *     inversedBy="operations"
      * )
-     *
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *     min="3",
-     *     max="255",
+     * @ORM\JoinColumn(
+     *     name="category_id",
+     *     referencedColumnName="id"
      * )
      */
-    protected $url;
-
-    /**
-     * Tags.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection $tags
-     *
-     * @ORM\ManyToMany(
-     *     targetEntity="Tag",
-     *     inversedBy="bookmarks",
-     * )
-     * @ORM\JoinTable(
-     *     name="bookmarks_tags"
-     * )
-     */
-    protected $tags;
+    protected $categories;
 
     /**
      * Created at.
@@ -126,7 +103,6 @@ class Bookmark
      * @ORM\Column(
      *     name="modified_at",
      *     type="datetime",
-     *     nullable=false,
      * )
      * @Gedmo\Timestampable(
      *     on="update",
@@ -139,7 +115,7 @@ class Bookmark
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -154,51 +130,27 @@ class Bookmark
     }
 
     /**
-     * Set title
+     * Set amount
      *
-     * @param string $title
+     * @param integer $amount
      *
-     * @return Bookmark
+     * @return Operation
      */
-    public function setTitle($title)
+    public function setAmount($amount)
     {
-        $this->title = $title;
+        $this->amount = $amount;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get amount
      *
-     * @return string
+     * @return integer
      */
-    public function getTitle()
+    public function getAmount()
     {
-        return $this->title;
-    }
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     *
-     * @return Bookmark
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
+        return $this->amount;
     }
 
     /**
@@ -206,7 +158,7 @@ class Bookmark
      *
      * @param \DateTime $createdAt
      *
-     * @return Bookmark
+     * @return Operation
      */
     public function setCreatedAt($createdAt)
     {
@@ -230,7 +182,7 @@ class Bookmark
      *
      * @param \DateTime $modifiedAt
      *
-     * @return Bookmark
+     * @return Operation
      */
     public function setModifiedAt($modifiedAt)
     {
@@ -250,36 +202,26 @@ class Bookmark
     }
 
     /**
-     * Add tag
+     * Set categories
      *
-     * @param \AppBundle\Entity\Tag $tag
+     * @param \AppBundle\Entity\Category $categories
      *
-     * @return Bookmark
+     * @return Operation
      */
-    public function addTag(\AppBundle\Entity\Tag $tag)
+    public function setCategories(\AppBundle\Entity\Category $categories = null)
     {
-        $this->tags[] = $tag;
+        $this->categories = $categories;
 
         return $this;
     }
 
     /**
-     * Remove tag
+     * Get categories
      *
-     * @param \AppBundle\Entity\Tag $tag
+     * @return \AppBundle\Entity\Category
      */
-    public function removeTag(\AppBundle\Entity\Tag $tag)
+    public function getCategories()
     {
-        $this->tags->removeElement($tag);
-    }
-
-    /**
-     * Get tags
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTags()
-    {
-        return $this->tags;
+        return $this->categories;
     }
 }

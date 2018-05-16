@@ -1,0 +1,9 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.role_delete',
+    page_title_param: {'%id%': role.id},
+    attr: {
+        method: 'post',
+        action: url('roles_delete', {'id': role.id}),
+    },
+    back_to_list_path: 'roles_index',
+} %}

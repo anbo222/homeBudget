@@ -45,3 +45,23 @@ services:
     AppBundle\Repository\CategoriesRepository:
             factory: 'doctrine.orm.entity_manager:getRepository'
             arguments: ['AppBundle\Entity\Category']
+
+    AppBundle\Repository\OperationsRepository:
+                factory: 'doctrine.orm.entity_manager:getRepository'
+                arguments: ['AppBundle\Entity\Operation']
+
+    AppBundle\Repository\RolesRepository:
+                    factory: 'doctrine.orm.entity_manager:getRepository'
+                    arguments: ['AppBundle\Entity\Role']
+
+    AppBundle\Repository\GroupsRepository:
+                    factory: 'doctrine.orm.entity_manager:getRepository'
+                    arguments: ['AppBundle\Entity\Group']
+
+    AppBundle\Repository\ConfirmationsRepository:
+                    factory: 'doctrine.orm.entity_manager:getRepository'
+                    arguments: ['AppBundle\Entity\Confirmation']
+
+    AppBundle\Repository\UsersRepository:
+                    factory: 'doctrine.orm.entity_manager:getRepository'
+                    arguments: ['AppBundle\Entity\User']

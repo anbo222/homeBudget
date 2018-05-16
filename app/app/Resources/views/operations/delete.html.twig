@@ -1,0 +1,9 @@
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.operation_delete',
+    page_title_param: {'%id%': operation.id},
+    attr: {
+        method: 'post',
+        action: url('operations_delete', {'id': operation.id}),
+    },
+    back_to_list_path: 'operations_index',
+} %}
